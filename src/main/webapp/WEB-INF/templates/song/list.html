@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer List</title>
+    <style>
+        table {
+            border: 1px solid #000;
+        }
+
+        th, td {
+            border: 1px dotted #555;
+        }
+    </style>
+</head>
+<body>
+There are <span th:text="${songs.size()}"></span> song(s).
+<table>
+    <caption>Nhaccuatui</caption>
+    <p>
+        <a th:href="@{/songs/create}" >Create new Song</a>
+    </p>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Type</th>
+        <th>Path</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${songs}">
+        <td th:text="${s.id}"></td>
+        <td>
+            <a th:href="@{/songs/{id}(id=${s.id})}" th:text="${s.name}"></a>
+        </td>
+        <td th:text="${s.author}"></td>
+        <td th:text="${s.type}"></td>
+        <td>
+            <a th:href="@{${s.path}}" th:text="Link"></a>
+        </td>
+        <td><a th:href="@{/songs/{id}/edit(id=${s.id})}" >Edit</a></td>
+        <td><form th:action="@{/songs/{id}/delete(id=${s.id})}" method="post">
+            <input type="submit" value="Delete">
+            </form></td>
+        <td></td>
+    </tr>
+    </tbody>
+    <p th:if="${success}">
+        <span th:text="${success}"></span>
+    </p>
+</table>
+</body>
+</html>
